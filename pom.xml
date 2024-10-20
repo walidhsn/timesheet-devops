@@ -58,10 +58,14 @@
 	<!-- Deploy to Nexus -->
 	<distributionManagement>
 		<repository>
-			<id>deploymentRepo</id>
-			<name>Nexus Repository</name>
-			<url>http://localhost:8081/repository/maven-releases/</url>
+			<id>maven-releases</id>
+			<url>http://192.168.0.70:8081/repository/maven-releases/</url>
 		</repository>
+
+		<snapshotRepository>
+			<id>maven-snapshots</id>
+			<url>http://192.168.0.70:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<build>
@@ -75,6 +79,16 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 			</plugin>
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-release-plugin</artifactId>
+            <version>3.0.0</version>
+            <configuration>
+                <tagNameFormat>v@{project.version}</tagNameFormat>
+                <autoVersionSubmodules>true</autoVersionSubmodules>
+                <useReleaseProfile>false</useReleaseProfile>
+            </configuration>
+        </plugin>
 		</plugins>
 	</build>
 
