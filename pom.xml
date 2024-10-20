@@ -17,6 +17,11 @@
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
+	<scm>
+        <connection>scm:git:https://github.com/walidhsn/timesheet-devops.git</connection>
+        <developerConnection>scm:git:https://github.com/walidhsn/timesheet-devops.git</developerConnection>
+        <url>https://github.com/walidhsn/timesheet-devops</url>
+    </scm>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
