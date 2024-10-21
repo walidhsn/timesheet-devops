@@ -2,9 +2,40 @@ package tn.esprit.spring.services;
 
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import tn.esprit.spring.entities.Role;
+import tn.esprit.spring.entities.User;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
-class UserServiceImplTest {}
+class UserServiceImplTest {
+    @Autowired
+    private UserServiceImpl userService; // Directly use the real service
+
+    @Test
+    void testAddUser() {
+        User user = new User(); // Create a new user
+        user.setFirstName("walid");
+        user.setLastName("hsn");
+        user.setRole(Role.INGENIEUR);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date birthDate = dateFormat.parse("08/06/2000");
+            user.setDateNaissance(birthDate);
+        } catch (ParseException e) {
+            e.printStackTrace(); // Handle the exception if the date format is incorrect
+        }
+        User createdUser = userService.addUser(user); // Call the real addUser method
+
+        assertNotNull(createdUser); // Check that a user is returned
+    }
+}

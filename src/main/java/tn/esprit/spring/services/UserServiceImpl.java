@@ -21,9 +21,8 @@ public class UserServiceImpl implements IUserService {
 	private static final Logger l = LogManager.getLogger(UserServiceImpl.class);
 
 	@Override
-	public List<User> retrieveAllUsers() { 
-
-		return null;
+	public List<User> retrieveAllUsers() {
+		return userRepository.findAll();
 	}
 
 
@@ -46,10 +45,8 @@ public class UserServiceImpl implements IUserService {
 
 	@Override 
 	public User updateUser(User u) {
-
 		User userUpdated = null; 
-		User u_saved = null; 
-
+		User u_saved = null;
 		
 		try {
 			// TODO Log à ajouter en début de la méthode 
@@ -88,8 +85,5 @@ public class UserServiceImpl implements IUserService {
 
 		return u;
 	}
-
-	
-	
 	
 }
