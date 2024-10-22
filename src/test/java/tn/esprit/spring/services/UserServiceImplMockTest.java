@@ -94,6 +94,39 @@ class UserServiceImplMockTest {
         assertEquals(Role.INGENIEUR, users.get(0).getRole()); // Verify role
         verify(userRepository, times(1)).findAll();
     }
+    @Test
+    void testAddUserException() {
+        when(userRepository.save(any(User.class))).thenThrow(new RuntimeException("Database error"));
+
+        User createdUser = userService.addUser(user);
+
+        assertNull(createdUser); // Ensure that null is returned when an exception occurs
+    }
+
+    @Test
+    void testRetrieveUserNotFound() {
+        when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+        User retrievedUser = userService.retrieveUser("1");
+
+        assertNull(retrievedUser); // Ensure that null is returned when the user is not found
+    }
+
+    @Test
+    void testUpdateUserException() {
+        when(userRepository.save(any(User.class))).thenThrow(new RuntimeException("Database error"));
+
+        User updatedUser = userService.updateUser(user);
+
+        assertNull(updatedUser); // Ensure that null is returned when an exception occurs
+    }
+
+    @Test
+    void testDeleteUserException() {
+        doThrow(new RuntimeException("Database error")).when(userRepository).deleteById(anyLong());
+
+        assertDoesNotThrow(() -> userService.deleteUser("1")); // Ensure no exceptions are thrown
+    }
 }
 
 

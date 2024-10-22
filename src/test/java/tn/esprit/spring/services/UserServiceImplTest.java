@@ -38,4 +38,23 @@ class UserServiceImplTest {
 
         assertNotNull(createdUser); // Check that a user is returned
     }
+    @Test
+    void testAddUserWithInvalidData() {
+        User user = new User(); // Create a user with missing fields
+        user.setFirstName(""); // Invalid first name
+        user.setLastName("hsn");
+        user.setRole(Role.INGENIEUR);
+
+        User createdUser = userService.addUser(user); // Call the real addUser method
+
+        assertNull(createdUser); // Check that no user is returned
+    }
+
+    @Test
+    void testRetrieveUserWithInvalidId() {
+        User retrievedUser = userService.retrieveUser("invalid_id");
+
+        assertNull(retrievedUser); // Check that null is returned
+    }
+
 }
