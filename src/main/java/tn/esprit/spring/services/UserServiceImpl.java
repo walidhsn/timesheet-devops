@@ -28,19 +28,17 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public User addUser(User u) {
-
-		User utilisateur = null; 
+		User utilisateur = null;
 
 		try {
-			// TODO Log à ajouter en début de la méthode 
-			utilisateur = userRepository.save(u); 
-			// TODO Log à ajouter à la fin de la méthode 
-
+			if (u.getFirstName() == null || u.getFirstName().isEmpty()) {
+				return null;
+			}
+			utilisateur = userRepository.save(u);
 		} catch (Exception e) {
-			// TODO log ici : l....("error in addUser() : " + e);
+			l.error("error in addUser() : " + e);
 		}
-
-		return utilisateur; 
+		return utilisateur;
 	}
 
 	@Override 
