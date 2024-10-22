@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService {
 		User utilisateur = null;
 
 		try {
-			if (u.getFirstName() == null || u.getFirstName().isEmpty()) {
+			if (u.getFirstName() == null || u.getFirstName().isEmpty() || u.getLastName() == null || u.getLastName().isEmpty() || u == null ) {
 				return null;
 			}
 			utilisateur = userRepository.save(u);

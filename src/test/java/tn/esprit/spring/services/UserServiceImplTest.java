@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.User;
+import tn.esprit.spring.repository.UserRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userService; // Directly use the real service
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void testAddUser() {
@@ -37,6 +40,8 @@ class UserServiceImplTest {
         User createdUser = userService.addUser(user); // Call the real addUser method
 
         assertNotNull(createdUser); // Check that a user is returned
+        assertEquals("walid", createdUser.getFirstName());
+        assertEquals("hsn", createdUser.getLastName());
     }
     @Test
     void testAddUserWithInvalidData() {

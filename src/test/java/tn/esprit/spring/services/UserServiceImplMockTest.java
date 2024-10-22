@@ -14,10 +14,7 @@ import tn.esprit.spring.entities.Role;
 import tn.esprit.spring.entities.User;
 import tn.esprit.spring.repository.UserRepository;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @TestMethodOrder(OrderAnnotation.class)
@@ -125,6 +122,23 @@ class UserServiceImplMockTest {
     void testDeleteUserException() {
         doThrow(new RuntimeException("Database error")).when(userRepository).deleteById(anyLong());
 
+        assertDoesNotThrow(() -> userService.deleteUser("1")); // Ensure no exceptions are thrown
+    }
+    @Test
+    void testAddNullUser() {
+        User createdUser = userService.addUser(null);
+        assertNull(createdUser); // Ensure null is returned
+    }
+
+    @Test
+    void testRetrieveAllUsersEmpty() {
+        when(userRepository.findAll()).thenReturn(Collections.emptyList());
+        List<User> users = userService.retrieveAllUsers();
+        assertTrue(users.isEmpty()); // Ensure list is empty
+    }
+    @Test
+    void testDeleteUserNotFound() {
+        doThrow(new RuntimeException("User not found")).when(userRepository).deleteById(anyLong());
         assertDoesNotThrow(() -> userService.deleteUser("1")); // Ensure no exceptions are thrown
     }
 }
