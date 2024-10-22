@@ -32,7 +32,7 @@ class UserServiceImplTest {
             Date birthDate = dateFormat.parse("08/06/2000");
             user.setDateNaissance(birthDate);
         } catch (ParseException e) {
-            e.printStackTrace(); // Handle the exception if the date format is incorrect
+            fail("Date parsing failed: " + e.getMessage());
         }
         User createdUser = userService.addUser(user); // Call the real addUser method
 
